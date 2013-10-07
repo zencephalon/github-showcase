@@ -22,9 +22,9 @@ app.config.from_object(__name__)
 github = GitHub(app)
 
 class User():
-    def __init__(self, name, github_access_token):
-        self.name = name
+    def __init__(self, github_access_token):
         self.github_access_token = github_access_token
+        self.id = 100 // change this
 
 class Project():
     def __init__(self, name, url, user):
@@ -69,10 +69,7 @@ def authorized(access_token):
     if access_token is None:
         return redirect(next_url)
 
-    user = User.query.filter_by(github_access_token=access_token).first()
-    if user is None:
-        user = User(access_token)
-    user.github_access_token = access_token
+    user = User(access_token)
 
     session['user_id'] = user.id
     return redirect(url_for('index'))
