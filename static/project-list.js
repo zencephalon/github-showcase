@@ -1,4 +1,3 @@
-var projects = ["Tekstfly", "Alphabet", "Mettacode"];
 
 function make_project_html(project) {
     var html = "<li class='repository'>";
@@ -7,7 +6,10 @@ function make_project_html(project) {
 }
 
 $().ready(function() {
-    for each (project in projects) {
-        $('#project-list').append(make_project_html(project))
-    }
+    var projects = ["Tekstfly", "Alphabet", "Mettacode"];
+    for (i = 0; i < projects.size; i++) {
+        var project = projects[i];
+        alert('hello');
+        $('#project-list').append(make_project_html(project));
+    });
 });
