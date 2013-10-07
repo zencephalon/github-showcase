@@ -24,7 +24,7 @@ github = GitHub(app)
 class User():
     def __init__(self, github_access_token):
         self.github_access_token = github_access_token
-        self.id = 100 // change this
+        self.id = 100 # change this
 
 class Project():
     def __init__(self, name, url, user):
