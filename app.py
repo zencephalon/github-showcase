@@ -8,12 +8,11 @@
 from flask import Flask, request, g, session, redirect, url_for
 from flask import render_template_string
 from flask.ext.github import GitHub
-from pymongo import 
 
 # Set these values
-GITHUB_CLIENT_ID = 'XXX'
-GITHUB_CLIENT_SECRET = 'YYY'
-GITHUB_CALLBACK_URL = 'http://localhost:5000/github-callback'
+GITHUB_CLIENT_ID = 'fc3ea1198ec2a0ecd673'
+GITHUB_CLIENT_SECRET = 'ab47a318577cd95bec78686555f0ceaf8b9a80f5'
+GITHUB_CALLBACK_URL = 'http://alphabet.io'
 
 # setup flask
 app = Flask(__name__)
@@ -30,9 +29,18 @@ def init_db():
     Base.metadata.create_all(bind=engine)
 
 
-class User(Base):
-    # todo, use pymongo here
 
+
+class User(Document):
+    def __init__(self, name, github_access_token):
+        self.name = name
+        self.github_access_token = github_access_token
+
+class Project(Document):
+    def __init__(self, name, url, user):
+        self.name = name
+        self.url = url
+        self.user = user
 
 @app.before_request
 def before_request():
