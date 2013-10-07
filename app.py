@@ -21,15 +21,12 @@ app.config.from_object(__name__)
 # setup github-flask
 github = GitHub(app)
 
-def init_db():
-    Base.metadata.create_all(bind=engine)
-
-class User(Document):
+class User():
     def __init__(self, name, github_access_token):
         self.name = name
         self.github_access_token = github_access_token
 
-class Project(Document):
+class Project():
     def __init__(self, name, url, user):
         self.name = name
         self.url = url
@@ -44,7 +41,6 @@ def before_request():
 
 @app.after_request
 def after_request(response):
-    db_session.remove()
     return response
 
 
@@ -76,9 +72,7 @@ def authorized(access_token):
     user = User.query.filter_by(github_access_token=access_token).first()
     if user is None:
         user = User(access_token)
-        db_session.add(user)
     user.github_access_token = access_token
-    db_session.commit()
 
     session['user_id'] = user.id
     return redirect(url_for('index'))
@@ -104,6 +98,5 @@ def user():
 
 
 if __name__ == '__main__':
-    init_db()
-    app.run(debug=True)
+    app.run(debug=True,port=4000,host='0.0.0.0')
 
