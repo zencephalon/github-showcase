@@ -36,7 +36,7 @@ class Project():
 def before_request():
     g.user = None
     if 'user_id' in session:
-        g.user = User.query.get(session['user_id'])
+        g.user = "matt" # change this too
 
 
 @app.after_request
