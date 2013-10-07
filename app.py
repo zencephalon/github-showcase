@@ -76,7 +76,7 @@ def authorized(access_token):
     user = User(access_token)
 
     session['user_id'] = "hello"
-    pdb.set_trace()
+    #pdb.set_trace()
     return redirect(url_for('index'))
 
 
@@ -98,6 +98,9 @@ def logout():
 def user():
     return str(github.get('user'))
 
+@app.route('/project')
+def project():
+    render_template('projects')
 
 if __name__ == '__main__':
     app.run(debug=True,port=4000,host='0.0.0.0')
