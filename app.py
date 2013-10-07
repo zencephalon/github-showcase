@@ -7,6 +7,7 @@
 """
 from flask import Flask, request, g, session, redirect, url_for
 from flask import render_template_string
+from flask import *
 from flask.ext.github import *
 import pdb
 
@@ -100,7 +101,7 @@ def user():
 
 @app.route('/project')
 def project():
-    render_template('projects')
+    return render_template('projects.html')
 
 if __name__ == '__main__':
     app.run(debug=True,port=4000,host='0.0.0.0')
