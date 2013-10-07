@@ -7,7 +7,7 @@
 """
 from flask import Flask, request, g, session, redirect, url_for
 from flask import render_template_string
-from flask.ext.github import GitHub
+from flask.ext.github import *
 
 # Set these values
 GITHUB_CLIENT_ID = 'fc3ea1198ec2a0ecd673'
@@ -21,15 +21,8 @@ app.config.from_object(__name__)
 # setup github-flask
 github = GitHub(app)
 
-Base = declarative_base()
-Base.query = db_session.query_property()
-
-
 def init_db():
     Base.metadata.create_all(bind=engine)
-
-
-
 
 class User(Document):
     def __init__(self, name, github_access_token):
