@@ -8,15 +8,19 @@
 from flask import Flask, request, g, session, redirect, url_for
 from flask import render_template_string
 from flask.ext.github import *
+import pdb
 
 # Set these values
 GITHUB_CLIENT_ID = 'fc3ea1198ec2a0ecd673'
 GITHUB_CLIENT_SECRET = 'ab47a318577cd95bec78686555f0ceaf8b9a80f5'
-GITHUB_CALLBACK_URL = 'http://alphabet.io'
+GITHUB_CALLBACK_URL = 'http://alphabet.io/github-callback'
 
 # setup flask
 app = Flask(__name__)
 app.config.from_object(__name__)
+app.config.update(
+        SECRET_KEY='ASECRETSOTERRIBLE'
+        )
 
 # setup github-flask
 github = GitHub(app)
@@ -71,7 +75,8 @@ def authorized(access_token):
 
     user = User(access_token)
 
-    session['user_id'] = user.id
+    session['user_id'] = "hello"
+    pdb.set_trace()
     return redirect(url_for('index'))
 
 
